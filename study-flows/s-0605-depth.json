@@ -1,0 +1,1061 @@
+{
+  "id": "a51932ac-9957-489f-bd52-fc1abf9e2729",
+  "revision": 0,
+  "last_node_id": 157,
+  "last_link_id": 140,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -906.2795065204773,
+        3332.148298685792
+      ],
+      "size": [
+        273.4375,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            132
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            133
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "DreamShaper8_inpaint_v1.0.safetensors"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        -885.6241058739643,
+        3551.386712797511
+      ],
+      "size": [
+        270,
+        339.328125
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            119
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "R-C.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -479.923509744693,
+        3127.0480430641755
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            126
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "ugly, deformed, bad anatomy, blurry"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -441.2722126795734,
+        2865.065460953505
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            125
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "1girl, floral wedding dress, gorgeous, soft indoor lighting, realistic photo"
+      ]
+    },
+    {
+      "id": 144,
+      "type": "7789b317-29b8-4f74-bf8c-4967c1b47809",
+      "pos": [
+        -507.76029298035655,
+        3574.2834988202712
+      ],
+      "size": [
+        250,
+        372.65625
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image",
+          "name": "images.image0",
+          "type": "IMAGE",
+          "link": 119
+        }
+      ],
+      "outputs": [
+        {
+          "label": "IMAGE",
+          "name": "IMAGE0",
+          "type": "IMAGE",
+          "links": [
+            139
+          ]
+        }
+      ],
+      "properties": {
+        "proxyWidgets": [
+          [
+            "9",
+            "value"
+          ],
+          [
+            "10",
+            "value"
+          ],
+          [
+            "143",
+            "$$canvas-image-preview"
+          ]
+        ]
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 148,
+      "type": "ControlNetLoader",
+      "pos": [
+        -929.222445385707,
+        3014.5064366206375
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CONTROL_NET",
+          "type": "CONTROL_NET",
+          "links": [
+            127
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ControlNetLoader"
+      },
+      "widgets_values": [
+        "control_v11f1p_sd15_depth.fp16.safetensors"
+      ]
+    },
+    {
+      "id": 149,
+      "type": "ControlNetApplyAdvanced",
+      "pos": [
+        70.16359758340633,
+        3208.136552061906
+      ],
+      "size": [
+        283.46875,
+        239.328125
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 125
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 126
+        },
+        {
+          "name": "control_net",
+          "type": "CONTROL_NET",
+          "link": 127
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 140
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            123
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            124
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ControlNetApplyAdvanced"
+      },
+      "widgets_values": [
+        0.75,
+        0,
+        0.8
+      ]
+    },
+    {
+      "id": 150,
+      "type": "KSampler",
+      "pos": [
+        512.656364839134,
+        3202.842951291532
+      ],
+      "size": [
+        270,
+        316.65625
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 132
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 123
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 124
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 131
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            122
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        647160382466678,
+        "randomize",
+        20,
+        8,
+        "euler",
+        "simple",
+        1
+      ]
+    },
+    {
+      "id": 151,
+      "type": "VAEDecode",
+      "pos": [
+        799.4268160530542,
+        3268.115723782727
+      ],
+      "size": [
+        225,
+        71.328125
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 122
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 133
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            121
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 152,
+      "type": "PreviewImage",
+      "pos": [
+        334.4451991382623,
+        3581.4552488421386
+      ],
+      "size": [
+        526.15625,
+        577.34375
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 121
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 153,
+      "type": "EmptyLatentImage",
+      "pos": [
+        89.35498445716024,
+        2966.6480376697086
+      ],
+      "size": [
+        270,
+        143.328125
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            131
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 156,
+      "type": "Zoe-DepthMapPreprocessor",
+      "pos": [
+        -538.821840874275,
+        4219.49658032125
+      ],
+      "size": [
+        270,
+        103.328125
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Zoe-DepthMapPreprocessor"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 157,
+      "type": "LeReS-DepthMapPreprocessor",
+      "pos": [
+        -165.29644510885552,
+        3635.735212868925
+      ],
+      "size": [
+        395.21875,
+        202
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 139
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            140
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LeReS-DepthMapPreprocessor"
+      },
+      "widgets_values": [
+        0,
+        0,
+        "disable",
+        512
+      ]
+    }
+  ],
+  "links": [
+    [
+      2,
+      2,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      2,
+      1,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      119,
+      3,
+      0,
+      144,
+      0,
+      "IMAGE"
+    ],
+    [
+      121,
+      151,
+      0,
+      152,
+      0,
+      "IMAGE"
+    ],
+    [
+      122,
+      150,
+      0,
+      151,
+      0,
+      "LATENT"
+    ],
+    [
+      123,
+      149,
+      0,
+      150,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      124,
+      149,
+      1,
+      150,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      125,
+      6,
+      0,
+      149,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      126,
+      5,
+      0,
+      149,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      127,
+      148,
+      0,
+      149,
+      2,
+      "CONTROL_NET"
+    ],
+    [
+      131,
+      153,
+      0,
+      150,
+      3,
+      "LATENT"
+    ],
+    [
+      132,
+      2,
+      0,
+      150,
+      0,
+      "MODEL"
+    ],
+    [
+      133,
+      2,
+      2,
+      151,
+      1,
+      "VAE"
+    ],
+    [
+      139,
+      144,
+      0,
+      157,
+      0,
+      "IMAGE"
+    ],
+    [
+      140,
+      157,
+      0,
+      149,
+      3,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "7789b317-29b8-4f74-bf8c-4967c1b47809",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 157,
+          "lastLinkId": 140,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "Brightness and Contrast",
+        "description": "Adjusts image brightness and contrast using a real-time GPU fragment shader.",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            360,
+            -176,
+            128,
+            68
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            1410,
+            -176,
+            128,
+            68
+          ]
+        },
+        "inputs": [
+          {
+            "id": "a5aae7ea-b511-4045-b5da-94101e269cd7",
+            "name": "images.image0",
+            "type": "IMAGE",
+            "linkIds": [
+              117
+            ],
+            "localized_name": "images.image0",
+            "label": "image",
+            "pos": [
+              464,
+              -152
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "30b72604-69b3-4944-b253-a9099bbd73a9",
+            "name": "IMAGE0",
+            "type": "IMAGE",
+            "linkIds": [
+              118
+            ],
+            "localized_name": "IMAGE0",
+            "label": "IMAGE",
+            "pos": [
+              1434,
+              -152
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 9,
+            "type": "PrimitiveFloat",
+            "pos": [
+              540,
+              -280
+            ],
+            "size": [
+              270,
+              80
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "brightness",
+                "localized_name": "值",
+                "name": "value",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "浮点",
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  115
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveFloat",
+              "min": 0,
+              "max": 100,
+              "precision": 1,
+              "step": 1,
+              "display": "gradientslider",
+              "gradient_stops": [
+                {
+                  "offset": 0,
+                  "color": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "offset": 1,
+                  "color": [
+                    255,
+                    255,
+                    255
+                  ]
+                }
+              ]
+            },
+            "widgets_values": [
+              0
+            ]
+          },
+          {
+            "id": 10,
+            "type": "PrimitiveFloat",
+            "pos": [
+              540,
+              -170
+            ],
+            "size": [
+              270,
+              80
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "contrast",
+                "localized_name": "值",
+                "name": "value",
+                "type": "FLOAT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "浮点",
+                "name": "FLOAT",
+                "type": "FLOAT",
+                "links": [
+                  116
+                ]
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "PrimitiveFloat",
+              "min": 0,
+              "max": 100,
+              "precision": 1,
+              "step": 1,
+              "display": "gradientslider",
+              "gradient_stops": [
+                {
+                  "offset": 0,
+                  "color": [
+                    136,
+                    136,
+                    136
+                  ]
+                },
+                {
+                  "offset": 0.4,
+                  "color": [
+                    68,
+                    68,
+                    68
+                  ]
+                },
+                {
+                  "offset": 0.6,
+                  "color": [
+                    187,
+                    187,
+                    187
+                  ]
+                },
+                {
+                  "offset": 0.8,
+                  "color": [
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "offset": 1,
+                  "color": [
+                    255,
+                    255,
+                    255
+                  ]
+                }
+              ]
+            },
+            "widgets_values": [
+              0
+            ]
+          },
+          {
+            "id": 143,
+            "type": "GLSLShader",
+            "pos": [
+              840,
+              -280
+            ],
+            "size": [
+              400,
+              252
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "label": "image0",
+                "localized_name": "images.image0",
+                "name": "images.image0",
+                "type": "IMAGE",
+                "link": 117
+              },
+              {
+                "label": "image1",
+                "localized_name": "images.image1",
+                "name": "images.image1",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "label": "u_float0",
+                "localized_name": "floats.u_float0",
+                "name": "floats.u_float0",
+                "shape": 7,
+                "type": "FLOAT",
+                "link": 115
+              },
+              {
+                "label": "u_float1",
+                "localized_name": "floats.u_float1",
+                "name": "floats.u_float1",
+                "shape": 7,
+                "type": "FLOAT",
+                "link": 116
+              },
+              {
+                "label": "u_float2",
+                "localized_name": "floats.u_float2",
+                "name": "floats.u_float2",
+                "shape": 7,
+                "type": "FLOAT",
+                "link": null
+              },
+              {
+                "label": "u_int0",
+                "localized_name": "ints.u_int0",
+                "name": "ints.u_int0",
+                "shape": 7,
+                "type": "INT",
+                "link": null
+              },
+              {
+                "label": "u_bool0",
+                "localized_name": "bools.u_bool0",
+                "name": "bools.u_bool0",
+                "shape": 7,
+                "type": "BOOLEAN",
+                "link": null
+              },
+              {
+                "label": "u_curve0",
+                "localized_name": "curves.u_curve0",
+                "name": "curves.u_curve0",
+                "shape": 7,
+                "type": "CURVE",
+                "link": null
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "IMAGE0",
+                "name": "IMAGE0",
+                "type": "IMAGE",
+                "links": [
+                  118
+                ]
+              },
+              {
+                "localized_name": "IMAGE1",
+                "name": "IMAGE1",
+                "type": "IMAGE",
+                "links": null
+              },
+              {
+                "localized_name": "IMAGE2",
+                "name": "IMAGE2",
+                "type": "IMAGE",
+                "links": null
+              },
+              {
+                "localized_name": "IMAGE3",
+                "name": "IMAGE3",
+                "type": "IMAGE",
+                "links": null
+              }
+            ],
+            "properties": {
+              "Node name for S&R": "GLSLShader"
+            },
+            "widgets_values": [
+              "#version 300 es\nprecision highp float;\n\nuniform sampler2D u_image0;\nuniform float u_float0; // Brightness slider -100..100\nuniform float u_float1; // Contrast slider -100..100\n\nin vec2 v_texCoord;\nout vec4 fragColor;\n\nconst float MID_GRAY = 0.18;  // 18% reflectance\n\n// sRGB gamma 2.2 approximation\nvec3 srgbToLinear(vec3 c) {\n    return pow(max(c, 0.0), vec3(2.2));\n}\n\nvec3 linearToSrgb(vec3 c) {\n    return pow(max(c, 0.0), vec3(1.0/2.2));\n}\n\nfloat mapBrightness(float b) {\n    return clamp(b / 100.0, -1.0, 1.0);\n}\n\nfloat mapContrast(float c) {\n    return clamp(c / 100.0 + 1.0, 0.0, 2.0);\n}\n\nvoid main() {\n    vec4 orig = texture(u_image0, v_texCoord);\n\n    float brightness = mapBrightness(u_float0);\n    float contrast   = mapContrast(u_float1);\n\n    vec3 lin = srgbToLinear(orig.rgb);\n\n    lin = (lin - MID_GRAY) * contrast + brightness + MID_GRAY;\n\n    // Convert back to sRGB\n    vec3 result = linearToSrgb(clamp(lin, 0.0, 1.0));\n\n    fragColor = vec4(result, orig.a);\n}\n",
+              "from_input"
+            ]
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 115,
+            "origin_id": 9,
+            "origin_slot": 0,
+            "target_id": 143,
+            "target_slot": 2,
+            "type": "FLOAT"
+          },
+          {
+            "id": 116,
+            "origin_id": 10,
+            "origin_slot": 0,
+            "target_id": 143,
+            "target_slot": 3,
+            "type": "FLOAT"
+          },
+          {
+            "id": 117,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 143,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 118,
+            "origin_id": 143,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          }
+        ],
+        "extra": {
+          "workflowRendererVersion": "LG"
+        }
+      }
+    ]
+  },
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.768706880517435,
+      "offset": [
+        1317.1289612362102,
+        -2758.4778695198315
+      ]
+    },
+    "frontendVersion": "1.43.18"
+  },
+  "version": 0.4
+}
